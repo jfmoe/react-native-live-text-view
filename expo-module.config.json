@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "tvos", "android", "web"],
+  "ios": {
+    "modules": ["ExpoLiveTextModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.livetext.ExpoLiveTextModule"]
+  }
+}
