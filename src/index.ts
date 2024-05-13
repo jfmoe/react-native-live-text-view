@@ -2,16 +2,9 @@ import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-cor
 
 // Import the native module. On web, it will be resolved to ExpoLiveText.web.ts
 // and on native platforms to ExpoLiveText.ts
+import { ChangeEventPayload, ExpoLiveTextViewProps } from './ExpoLiveText.types';
 import ExpoLiveTextModule from './ExpoLiveTextModule';
 import ExpoLiveTextView from './ExpoLiveTextView';
-import { ChangeEventPayload, ExpoLiveTextViewProps } from './ExpoLiveText.types';
-
-// Get the native constant value.
-export const PI = ExpoLiveTextModule.PI;
-
-export function hello(): string {
-  return ExpoLiveTextModule.hello();
-}
 
 export async function setValueAsync(value: string) {
   return await ExpoLiveTextModule.setValueAsync(value);
