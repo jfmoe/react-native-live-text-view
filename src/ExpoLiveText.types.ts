@@ -1,9 +1,8 @@
 import { ViewProps } from 'react-native';
 
 export type OnReadyEvent = {
-  text: string;
+  transcript: string;
   hasResults: boolean;
-  success: boolean;
 };
 
 export interface ExpoLiveTextViewProps extends ViewProps {

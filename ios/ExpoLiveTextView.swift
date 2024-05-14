@@ -101,18 +101,12 @@ class ExpoLiveTextView: ExpoView {
           imageAnalysisInteraction.preferredInteractionTypes = .automatic
 
           self.onReady([
-            "hasResults": analysis.hasResults(for: .text),
-            "text": analysis.transcript,
-            "success": true,
+            "hasResults": analysis.hasResults(for: [.text]),
+            "transcript": analysis.transcript,
           ])
         }
       } catch {
         print(error.localizedDescription)
-        self.onReady([
-          "hasResults": false,
-          "text": "",
-          "success": false,
-        ])
       }
     }
 
