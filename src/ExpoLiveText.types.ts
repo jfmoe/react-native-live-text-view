@@ -1,23 +1,28 @@
 import { ViewProps } from 'react-native';
 
-export interface OnReadyEvent {
+export interface OnReadyEventData {
   hasResults: boolean;
   transcript: string;
 }
 
-export interface OnErrorEvent {
+export interface OnErrorEventData {
   error: string;
 }
 
-export interface OnTextSelectionChangeEvent {
+export interface OnTextSelectionChangeEventData {
   selectedText: string;
   hasActiveTextSelection: boolean;
+}
+
+export interface OnHighlightChangeEventData {
+  visible: boolean;
 }
 
 export interface ExpoLiveTextViewProps extends ViewProps {
   disabled?: boolean;
   onStart?: () => void;
-  onReady?: (event: { nativeEvent: OnReadyEvent }) => void;
-  onError?: (event: { nativeEvent: OnErrorEvent }) => void;
-  onTextSelectionChange?: (event: { nativeEvent: OnTextSelectionChangeEvent }) => void;
+  onReady?: (event: OnReadyEventData) => void;
+  onError?: (event: OnErrorEventData) => void;
+  onHighlightChange?: (event: OnHighlightChangeEventData) => void;
+  onTextSelectionChange?: (event: OnTextSelectionChangeEventData) => void;
 }

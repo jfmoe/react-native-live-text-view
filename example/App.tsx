@@ -28,14 +28,12 @@ export default function App() {
           <ExpoLiveTextView
             disabled={disabled}
             onStart={() => console.log('Image analyze start')}
-            onReady={({ nativeEvent }) =>
-              console.log(`Image analyze result: ${JSON.stringify(nativeEvent)}`)
-            }
-            onError={({ nativeEvent }) => console.log(`Image analyze error: ${nativeEvent.error}`)}
-            onTextSelectionChange={({ nativeEvent }) =>
+            onReady={event => console.log(`Image analyze result: ${JSON.stringify(event)}`)}
+            onError={event => console.log(`Image analyze error: ${event.error}`)}
+            onTextSelectionChange={event =>
               console.log(
-                `hasActiveTextSelection: ${nativeEvent.hasActiveTextSelection}`,
-                `selectedText: ${nativeEvent.selectedText}`,
+                `hasActiveTextSelection: ${event.hasActiveTextSelection}`,
+                `selectedText: ${event.selectedText}`,
               )
             }
           >
