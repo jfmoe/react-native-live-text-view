@@ -11,40 +11,69 @@ class ExpoLiveTextView: ExpoView {
   @available(iOS 16.0, *)
   static let imageAnalyzer = ImageAnalyzer.isSupported ? ImageAnalyzer() : nil
 
+  var disabled: Bool = false {
+    didSet {
+      guard #available(iOS 16.0, *), oldValue != disabled,
+        ImageAnalyzer.isSupported
+      else {
+        return
+      }
+
+      if disabled {
+        if let interaction = findImageAnalysisInteraction() {
+          self.imageView?.removeInteraction(interaction)
+          self.clean()
+        }
+      } else {
+        self.analyzeImage()
+      }
+    }
+  }
+
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
     clipsToBounds = true
   }
 
   override func didMoveToWindow() {
-    if #available(iOS 16.0, *) {
-      if let imageView = self.subviews.first?.subviews.first as? UIImageView {
-        self.imageView = imageView
-
-        if let imageView = self.imageView {
-          let interaction = ImageAnalysisInteraction()
-          imageView.addInteraction(interaction)
-        }
-
-        self.attachAnalyzerToImage()
-
-        self.mySub = imageView.observe(\.image, options: [.new]) { object, change in
-          self.attachAnalyzerToImage()
-        }
-      }
+    if #available(iOS 16.0, *), !disabled {
+      self.analyzeImage()
     }
 
   }
 
+  private func analyzeImage() {
+    guard #available(iOS 16.0, *),
+      ImageAnalyzer.isSupported
+    else {
+      return
+    }
+
+    if let imageView = self.subviews.first?.subviews.first as? UIImageView {
+      self.imageView = imageView
+
+      if let imageView = self.imageView {
+        let interaction = ImageAnalysisInteraction()
+        imageView.addInteraction(interaction)
+      }
+
+      self.attachAnalyzerToImage()
+
+      self.mySub = imageView.observe(\.image, options: [.new]) { object, change in
+        self.attachAnalyzerToImage()
+      }
+    }
+  }
+
   @available(iOS 16.0, *)
-  func attachAnalyzerToImage() {
+  private func attachAnalyzerToImage() {
     guard let image = self.imageView?.image else {
       return
     }
 
     Task {
       guard let imageAnalyzer = Self.imageAnalyzer,
-        let imageAnalysisInteraction = findImageAnalysisInteraction()
+        let imageAnalysisInteraction = self.findImageAnalysisInteraction()
       else {
         return
       }
@@ -73,9 +102,13 @@ class ExpoLiveTextView: ExpoView {
     return interaction as? ImageAnalysisInteraction
   }
 
-  deinit {
+  private func clean() {
     self.imageView = nil
     self.mySub = nil
+  }
+
+  deinit {
+    self.clean()
   }
 
 }

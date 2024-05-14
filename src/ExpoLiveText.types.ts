@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { ViewProps } from 'react-native';
 
 export type ChangeEventPayload = {
   value: string;
 };
 
-export interface ExpoLiveTextViewProps {
-  children: ReactNode;
+export interface ExpoLiveTextViewProps extends ViewProps {
+  disabled?: boolean;
 }

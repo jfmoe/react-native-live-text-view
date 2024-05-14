@@ -6,10 +6,6 @@ public class ExpoLiveTextModule: Module {
 
     Name("ExpoLiveText")
 
-    // Prop("enable") { (view, enable: Bool?) in
-    //   view.enable = enable ?? false
-    // }
-
     Events("onChange")
 
     AsyncFunction("setValueAsync") { (value: String) in
@@ -21,6 +17,9 @@ public class ExpoLiveTextModule: Module {
     }
 
     View(ExpoLiveTextView.self) {
+      Prop("disabled") { (view, disabled: Bool?) in
+        view.disabled = disabled ?? false
+      }
 
     }
   }

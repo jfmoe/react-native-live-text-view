@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "expo": "~51.0.2",
-    "react": "18.2.0",
-    "react-native": "0.74.1",
+    "expo-image": "~1.12.9",
     "expo-image-picker": "~15.0.4",
-    "expo-image": "~1.12.9"
+    "react": "18.2.0",
+    "react-native": "0.74.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
