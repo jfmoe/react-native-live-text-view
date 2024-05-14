@@ -30,6 +30,7 @@ export default function App() {
             onStart={() => console.log('Image analyze start')}
             onReady={event => console.log(`Image analyze result: ${JSON.stringify(event)}`)}
             onError={event => console.log(`Image analyze error: ${event.error}`)}
+            onHighlightChange={isHighlight => console.log(`isHighlight: ${isHighlight}`)}
             onTextSelectionChange={event =>
               console.log(
                 `hasActiveTextSelection: ${event.hasActiveTextSelection}`,

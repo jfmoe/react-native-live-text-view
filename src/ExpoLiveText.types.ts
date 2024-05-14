@@ -15,7 +15,7 @@ export interface OnTextSelectionChangeEventData {
 }
 
 export interface OnHighlightChangeEventData {
-  visible: boolean;
+  isHighlight: boolean;
 }
 
 export interface ExpoLiveTextViewProps extends ViewProps {
@@ -23,6 +23,6 @@ export interface ExpoLiveTextViewProps extends ViewProps {
   onStart?: () => void;
   onReady?: (event: OnReadyEventData) => void;
   onError?: (event: OnErrorEventData) => void;
-  onHighlightChange?: (event: OnHighlightChangeEventData) => void;
+  onHighlightChange?: (isHighlight: boolean) => void;
   onTextSelectionChange?: (event: OnTextSelectionChangeEventData) => void;
 }

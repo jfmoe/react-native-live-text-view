@@ -22,6 +22,8 @@ class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
 
   let onTextSelectionChange = EventDispatcher()
 
+  let onHighlightChange = EventDispatcher()
+
   // MARK: - Props
 
   var disabled: Bool = false {
@@ -152,6 +154,14 @@ class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
       "selectedText": selectedText,
       "hasActiveTextSelection": interaction.hasActiveTextSelection,
     ])
+  }
+
+  @available(iOS 16.0, *)
+  func interaction(
+    _ interaction: ImageAnalysisInteraction,
+    highlightSelectedItemsDidChange highlightSelectedItems: Bool
+  ) {
+    self.onHighlightChange(["isHighlight": highlightSelectedItems])
   }
 
   private func clean() {

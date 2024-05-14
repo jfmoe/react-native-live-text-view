@@ -36,7 +36,7 @@ export default function ExpoLiveTextView(props: ExpoLiveTextViewProps) {
   };
 
   const onHighlightChange = (event: NativeSyntheticEvent<OnHighlightChangeEventData>) => {
-    return props.onHighlightChange?.(withDeprecatedNativeEvent(event));
+    return props.onHighlightChange?.(withDeprecatedNativeEvent(event).isHighlight);
   };
 
   const onTextSelectionChange = (event: NativeSyntheticEvent<OnTextSelectionChangeEventData>) => {
