@@ -11,6 +11,8 @@ public class ExpoLiveTextModule: Module {
         view.disabled = disabled ?? false
       }
 
+      Events("onStart")
+
       Events("onReady")
 
       Events("onError")

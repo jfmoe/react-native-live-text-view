@@ -27,6 +27,7 @@ export default function App() {
           <Button title="toggleLiveTextDisabled" onPress={() => setDisabled(v => !v)} />
           <ExpoLiveTextView
             disabled={disabled}
+            onStart={() => console.log('Image analyze start')}
             onReady={({ nativeEvent }) =>
               console.log(`Image analyze result: ${JSON.stringify(nativeEvent)}`)
             }

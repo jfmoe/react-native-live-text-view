@@ -10,8 +10,11 @@ class ExpoLiveTextView: ExpoView {
 
   private var mySub: Any? = nil
   private var imageView: UIImageView? = nil
+  private let attempts: Int = 2
 
   // MARK: - Events
+
+  let onStart = EventDispatcher()
 
   let onReady = EventDispatcher()
 
@@ -33,7 +36,7 @@ class ExpoLiveTextView: ExpoView {
           self.clean()
         }
       } else {
-        self.analyzeImage(attempts: 2)
+        self.analyzeImage(attempts: self.attempts)
       }
     }
   }
@@ -47,7 +50,7 @@ class ExpoLiveTextView: ExpoView {
 
   override func didMoveToWindow() {
     if #available(iOS 16.0, *), !self.disabled {
-      self.analyzeImage(attempts: 2)
+      self.analyzeImage(attempts: self.attempts)
     }
   }
 
@@ -66,12 +69,7 @@ class ExpoLiveTextView: ExpoView {
 
     if attempts == 0 {
       // Handle the case when imageView is still nil after several attempts
-      let errorMsg = "Failed to initialize imageView"
-      print(errorMsg)
-      self.onError([
-        "error": errorMsg
-      ])
-
+      self.handleAnalysisError(errorMsg: "Failed to initialize imageView.")
       return
     }
 
@@ -99,13 +97,17 @@ class ExpoLiveTextView: ExpoView {
   @available(iOS 16.0, *)
   private func attachAnalyzerToImage() {
     guard let image = self.imageView?.image else {
+      self.handleAnalysisError(errorMsg: "Failed to initialize imageView.")
       return
     }
+
+    self.onStart()
 
     Task {
       guard let imageAnalyzer = Self.imageAnalyzer,
         let imageAnalysisInteraction = self.findImageAnalysisInteraction()
       else {
+        self.handleAnalysisError(errorMsg: "Failed to initialize imageAnalysisInteraction.")
         return
       }
 
@@ -124,10 +126,7 @@ class ExpoLiveTextView: ExpoView {
           ])
         }
       } catch {
-        print(error.localizedDescription)
-        self.onError([
-          "error": error.localizedDescription
-        ])
+        self.handleAnalysisError(errorMsg: error.localizedDescription)
       }
     }
   }
@@ -143,6 +142,13 @@ class ExpoLiveTextView: ExpoView {
   private func clean() {
     self.imageView = nil
     self.mySub = nil
+  }
+
+  private func handleAnalysisError(errorMsg: String) {
+    print(errorMsg)
+    self.onError([
+      "error": errorMsg
+    ])
   }
 
 }
