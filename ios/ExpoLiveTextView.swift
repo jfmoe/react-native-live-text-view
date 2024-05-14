@@ -5,23 +5,29 @@ import VisionKit
 
 class ExpoLiveTextView: ExpoView {
 
-  let onReady = EventDispatcher()
+  @available(iOS 16.0, *)
+  static let imageAnalyzer = ImageAnalyzer.isSupported ? ImageAnalyzer() : nil
 
   private var mySub: Any? = nil
   private var imageView: UIImageView? = nil
 
-  @available(iOS 16.0, *)
-  static let imageAnalyzer = ImageAnalyzer.isSupported ? ImageAnalyzer() : nil
+  // MARK: - Events
+
+  let onReady = EventDispatcher()
+
+  let onError = EventDispatcher()
+
+  // MARK: - Props
 
   var disabled: Bool = false {
     didSet {
-      guard #available(iOS 16.0, *), oldValue != disabled,
+      guard #available(iOS 16.0, *), oldValue != self.disabled,
         ImageAnalyzer.isSupported
       else {
         return
       }
 
-      if disabled {
+      if self.disabled {
         if let interaction = findImageAnalysisInteraction() {
           self.imageView?.removeInteraction(interaction)
           self.clean()
@@ -32,17 +38,24 @@ class ExpoLiveTextView: ExpoView {
     }
   }
 
+  // MARK: - View
+
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
     clipsToBounds = true
   }
 
   override func didMoveToWindow() {
-    if #available(iOS 16.0, *), !disabled {
+    if #available(iOS 16.0, *), !self.disabled {
       self.analyzeImage(attempts: 2)
     }
-
   }
+
+  deinit {
+    self.clean()
+  }
+
+  // MARK: - Implementation
 
   private func analyzeImage(attempts: Int) {
     guard #available(iOS 16.0, *),
@@ -53,7 +66,12 @@ class ExpoLiveTextView: ExpoView {
 
     if attempts == 0 {
       // Handle the case when imageView is still nil after several attempts
-      print("Failed to initialize imageView")
+      let errorMsg = "Failed to initialize imageView"
+      print(errorMsg)
+      self.onError([
+        "error": errorMsg
+      ])
+
       return
     }
 
@@ -67,7 +85,7 @@ class ExpoLiveTextView: ExpoView {
 
       self.attachAnalyzerToImage()
 
-      self.mySub = imageView.observe(\.image, options: [.new]) { object, change in
+      self.mySub = imageView.observe(\.image, options: [.new]) { _, _ in
         self.attachAnalyzerToImage()
       }
     } else {
@@ -107,15 +125,17 @@ class ExpoLiveTextView: ExpoView {
         }
       } catch {
         print(error.localizedDescription)
+        self.onError([
+          "error": error.localizedDescription
+        ])
       }
     }
-
   }
 
   @available(iOS 16.0, *)
   private func findImageAnalysisInteraction() -> ImageAnalysisInteraction? {
     let interaction = self.imageView?.interactions.first {
-      return $0 is ImageAnalysisInteraction
+      $0 is ImageAnalysisInteraction
     }
     return interaction as? ImageAnalysisInteraction
   }
@@ -123,10 +143,6 @@ class ExpoLiveTextView: ExpoView {
   private func clean() {
     self.imageView = nil
     self.mySub = nil
-  }
-
-  deinit {
-    self.clean()
   }
 
 }

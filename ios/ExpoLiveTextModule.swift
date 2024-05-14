@@ -13,6 +13,8 @@ public class ExpoLiveTextModule: Module {
 
       Events("onReady")
 
+      Events("onError")
+
     }
   }
 }

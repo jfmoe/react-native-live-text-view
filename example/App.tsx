@@ -30,6 +30,7 @@ export default function App() {
             onReady={({ nativeEvent }) =>
               console.log(`Image analyze result: ${JSON.stringify(nativeEvent)}`)
             }
+            onError={({ nativeEvent }) => console.log(`Image analyze error: ${nativeEvent.error}`)}
           >
             <Image source={{ uri: image }} style={styles.image} />
           </ExpoLiveTextView>
