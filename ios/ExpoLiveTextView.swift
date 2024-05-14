@@ -5,6 +5,8 @@ import VisionKit
 
 class ExpoLiveTextView: ExpoView {
 
+  let onReady = EventDispatcher()
+
   private var mySub: Any? = nil
   private var imageView: UIImageView? = nil
 
@@ -97,9 +99,20 @@ class ExpoLiveTextView: ExpoView {
         DispatchQueue.main.async {
           imageAnalysisInteraction.analysis = analysis
           imageAnalysisInteraction.preferredInteractionTypes = .automatic
+
+          self.onReady([
+            "hasResults": analysis.hasResults(for: .text),
+            "text": analysis.transcript,
+            "success": true,
+          ])
         }
       } catch {
         print(error.localizedDescription)
+        self.onReady([
+          "hasResults": false,
+          "text": "",
+          "success": false,
+        ])
       }
     }
 

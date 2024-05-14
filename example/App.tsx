@@ -25,7 +25,12 @@ export default function App() {
       {image && (
         <>
           <Button title="toggleLiveTextDisabled" onPress={() => setDisabled(v => !v)} />
-          <ExpoLiveTextView disabled={disabled}>
+          <ExpoLiveTextView
+            disabled={disabled}
+            onReady={({ nativeEvent }) =>
+              console.log(`Image analyze result: ${JSON.stringify(nativeEvent)}`)
+            }
+          >
             <Image source={{ uri: image }} style={styles.image} />
           </ExpoLiveTextView>
         </>
