@@ -3,7 +3,7 @@ import UIKit
 import Vision
 import VisionKit
 
-class ExpoLiveTextView: ExpoView {
+class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
 
   @available(iOS 16.0, *)
   static let imageAnalyzer = ImageAnalyzer.isSupported ? ImageAnalyzer() : nil
@@ -19,6 +19,8 @@ class ExpoLiveTextView: ExpoView {
   let onReady = EventDispatcher()
 
   let onError = EventDispatcher()
+
+  let onTextSelectionChange = EventDispatcher()
 
   // MARK: - Props
 
@@ -79,6 +81,7 @@ class ExpoLiveTextView: ExpoView {
       if let imageView = self.imageView {
         let interaction = ImageAnalysisInteraction()
         imageView.addInteraction(interaction)
+        interaction.delegate = self
       }
 
       self.attachAnalyzerToImage()
@@ -137,6 +140,18 @@ class ExpoLiveTextView: ExpoView {
       $0 is ImageAnalysisInteraction
     }
     return interaction as? ImageAnalysisInteraction
+  }
+
+  @available(iOS 16.0, *)
+  public func textSelectionDidChange(_ interaction: ImageAnalysisInteraction) {
+    var selectedText: String = ""
+    if #available(iOS 17.0, *) {
+      selectedText = interaction.selectedText
+    }
+    self.onTextSelectionChange([
+      "selectedText": selectedText,
+      "hasActiveTextSelection": interaction.hasActiveTextSelection,
+    ])
   }
 
   private func clean() {
