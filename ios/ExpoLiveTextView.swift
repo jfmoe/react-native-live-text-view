@@ -25,7 +25,7 @@ class ExpoLiveTextView: ExpoView {
           self.clean()
         }
       } else {
-        self.analyzeImage()
+        self.analyzeImage(attempts: 2)
       }
     }
   }
@@ -37,15 +37,21 @@ class ExpoLiveTextView: ExpoView {
 
   override func didMoveToWindow() {
     if #available(iOS 16.0, *), !disabled {
-      self.analyzeImage()
+      self.analyzeImage(attempts: 2)
     }
 
   }
 
-  private func analyzeImage() {
+  private func analyzeImage(attempts: Int) {
     guard #available(iOS 16.0, *),
       ImageAnalyzer.isSupported
     else {
+      return
+    }
+
+    if attempts == 0 {
+      // Handle the case when imageView is still nil after several attempts
+      print("Failed to initialize imageView")
       return
     }
 
@@ -61,6 +67,11 @@ class ExpoLiveTextView: ExpoView {
 
       self.mySub = imageView.observe(\.image, options: [.new]) { object, change in
         self.attachAnalyzerToImage()
+      }
+    } else {
+      print("------------------------------- attempts \(attempts)")
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        self.analyzeImage(attempts: attempts - 1)
       }
     }
   }
