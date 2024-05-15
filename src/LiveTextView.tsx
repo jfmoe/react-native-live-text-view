@@ -3,12 +3,12 @@ import * as React from 'react';
 import { NativeSyntheticEvent } from 'react-native';
 
 import {
-  ExpoLiveTextViewProps,
+  LiveTextViewProps,
   OnErrorEventData,
   OnHighlightChangeEventData,
   OnReadyEventData,
   OnTextSelectionChangeEventData,
-} from './ExpoLiveText.types';
+} from './LiveText.types';
 
 const NativeView = requireNativeViewManager('ExpoLiveText');
 
@@ -26,7 +26,7 @@ function withDeprecatedNativeEvent<NativeEvent>(
   return event.nativeEvent;
 }
 
-export default function ExpoLiveTextView(props: ExpoLiveTextViewProps) {
+export default function LiveTextView(props: LiveTextViewProps) {
   const onReady = (event: NativeSyntheticEvent<OnReadyEventData>) => {
     return props.onReady?.(withDeprecatedNativeEvent(event));
   };

@@ -18,7 +18,7 @@ export interface OnHighlightChangeEventData {
   isHighlight: boolean;
 }
 
-export interface ExpoLiveTextViewProps extends ViewProps {
+export interface LiveTextViewProps extends ViewProps {
   disabled?: boolean;
   onStart?: () => void;
   onReady?: (event: OnReadyEventData) => void;

@@ -1,4 +1,4 @@
-import { ExpoLiveTextViewProps } from './ExpoLiveText.types';
-import ExpoLiveTextView from './ExpoLiveTextView';
+import { LiveTextViewProps } from './LiveText.types';
+import LiveTextView from './LiveTextView';
 
-export { ExpoLiveTextView, ExpoLiveTextViewProps };
+export { LiveTextView, LiveTextViewProps };

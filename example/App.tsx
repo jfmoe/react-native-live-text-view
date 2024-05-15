@@ -1,5 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
-import { ExpoLiveTextView } from 'expo-live-text';
+import { LiveTextView } from 'expo-live-text';
 import { useState } from 'react';
 import { StyleSheet, Image, View, Button } from 'react-native';
 
@@ -25,7 +25,7 @@ export default function App() {
       {image && (
         <>
           <Button title="toggleLiveTextDisabled" onPress={() => setDisabled(v => !v)} />
-          <ExpoLiveTextView
+          <LiveTextView
             disabled={disabled}
             onStart={() => console.log('Image analyze start')}
             onReady={event => console.log(`Image analyze result: ${JSON.stringify(event)}`)}
@@ -39,7 +39,7 @@ export default function App() {
             }
           >
             <Image source={{ uri: image }} style={styles.image} />
-          </ExpoLiveTextView>
+          </LiveTextView>
         </>
       )}
     </View>
