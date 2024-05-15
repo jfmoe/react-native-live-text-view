@@ -20,6 +20,7 @@ export interface OnHighlightChangeEventData {
 
 export interface LiveTextViewProps extends ViewProps {
   disabled?: boolean;
+  liveActionButtonHidden?: boolean;
   onStart?: () => void;
   onReady?: (event: OnReadyEventData) => void;
   onError?: (event: OnErrorEventData) => void;

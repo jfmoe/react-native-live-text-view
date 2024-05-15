@@ -11,6 +11,10 @@ public class ExpoLiveTextModule: Module {
         view.disabled = disabled ?? false
       }
 
+      Prop("liveActionButtonHidden") { (view, liveActionButtonHidden: Bool?) in
+        view.liveActionButtonHidden = liveActionButtonHidden ?? false
+      }
+
       Events("onStart")
 
       Events("onReady")

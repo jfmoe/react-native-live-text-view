@@ -45,6 +45,21 @@ class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
     }
   }
 
+  var liveActionButtonHidden: Bool = false {
+    didSet {
+      guard #available(iOS 16.0, *), oldValue != self.liveActionButtonHidden,
+        ImageAnalyzer.isSupported
+      else {
+        return
+      }
+
+      if let interaction = findImageAnalysisInteraction() {
+        interaction.setSupplementaryInterfaceHidden(
+          self.liveActionButtonHidden, animated: false)
+      }
+    }
+  }
+
   // MARK: - View
 
   required init(appContext: AppContext? = nil) {
@@ -123,7 +138,9 @@ class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
 
         DispatchQueue.main.async {
           imageAnalysisInteraction.analysis = analysis
-          imageAnalysisInteraction.preferredInteractionTypes = .automatic
+          imageAnalysisInteraction.preferredInteractionTypes = .textSelection
+          imageAnalysisInteraction.setSupplementaryInterfaceHidden(
+            self.liveActionButtonHidden, animated: false)
 
           self.onReady([
             "hasResults": analysis.hasResults(for: [.text]),

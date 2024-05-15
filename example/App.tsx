@@ -6,6 +6,7 @@ import { StyleSheet, Image, View, Button } from 'react-native';
 export default function App() {
   const [image, setImage] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [liveActionButtonHidden, setLiveActionButtonHidden] = useState(false);
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -25,8 +26,13 @@ export default function App() {
       {image && (
         <>
           <Button title="toggleLiveTextDisabled" onPress={() => setDisabled(v => !v)} />
+          <Button
+            title="toggleLiveActionButtonHidden"
+            onPress={() => setLiveActionButtonHidden(v => !v)}
+          />
           <LiveTextView
             disabled={disabled}
+            liveActionButtonHidden={liveActionButtonHidden}
             onStart={() => console.log('Image analyze start')}
             onReady={event => console.log(`Image analyze result: ${JSON.stringify(event)}`)}
             onError={event => console.log(`Image analyze error: ${event.error}`)}
