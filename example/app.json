@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-live-text-example",
-    "slug": "expo-live-text-example",
+    "name": "react-native-live-text-view-example",
+    "slug": "react-native-live-text-view-example",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,16 +14,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "expo.modules.livetext.example"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "expo.modules.livetext.example"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
