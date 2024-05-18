@@ -18,7 +18,8 @@
     "react-native",
     "expo",
     "react-native-live-text-view",
-    "ReactNativeLiveTextView"
+    "ReactNativeLiveTextView",
+    "live text"
   ],
   "repository": "https://github.com/jfmoe/react-native-live-text-view",
   "bugs": {
