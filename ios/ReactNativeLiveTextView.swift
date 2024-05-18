@@ -3,7 +3,7 @@ import UIKit
 import Vision
 import VisionKit
 
-class ExpoLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
+class ReactNativeLiveTextView: ExpoView, ImageAnalysisInteractionDelegate {
 
   @available(iOS 16.0, *)
   static let imageAnalyzer = ImageAnalyzer.isSupported ? ImageAnalyzer() : nil

@@ -1,7 +1,7 @@
 {
-  "name": "expo-live-text",
+  "name": "react-native-live-text-view",
   "version": "0.1.0",
-  "description": "My new module",
+  "description": "iOS's live text image for React Native",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -18,19 +18,20 @@
   "keywords": [
     "react-native",
     "expo",
-    "expo-live-text",
-    "ExpoLiveText"
+    "react-native-live-text-view",
+    "ReactNativeLiveTextView"
   ],
-  "repository": "https://github.com/jfmoe/expo-live-text",
+  "repository": "https://github.com/jfmoe/react-native-live-text-view",
   "bugs": {
-    "url": "https://github.com/jfmoe/expo-live-text/issues"
+    "url": "https://github.com/jfmoe/react-native-live-text-view/issues"
   },
-  "author": "jfmoe <34602628+jfmoe@users.noreply.github.com> (https://github.com/jfmoe)",
+  "author": "jfmoe <taoxfan@outlook.com> (https://github.com/jfmoe)",
   "license": "MIT",
-  "homepage": "https://github.com/jfmoe/expo-live-text#readme",
+  "homepage": "https://github.com/jfmoe/react-native-live-text-view#readme",
   "devDependencies": {
     "@types/react": "^18.0.25",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-json": "^3.1.0",
     "expo-module-scripts": "^3.5.1",
     "expo-modules-core": "^1.12.9",
     "prettier": "^3.2.5"

@@ -1,7 +1,7 @@
 import * as ImagePicker from 'expo-image-picker';
-import { LiveTextView } from 'expo-live-text';
 import { useState } from 'react';
 import { StyleSheet, Image, View, Button } from 'react-native';
+import { LiveTextView } from 'react-native-live-text-view';
 
 export default function App() {
   const [image, setImage] = useState<string | null>(null);

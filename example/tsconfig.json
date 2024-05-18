@@ -3,8 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "expo-live-text": ["../src/index"],
-      "expo-live-text/*": ["../src/*"]
+      "react-native-live-text-view": ["../src/index"],
+      "react-native-live-text-view/*": ["../src/*"]
     }
   }
 }

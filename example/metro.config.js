@@ -19,7 +19,7 @@ config.resolver.nodeModulesPaths = [
 ];
 
 config.resolver.extraNodeModules = {
-  'expo-live-text': '..',
+  'react-native-live-text-view': '..',
 };
 
 config.watchFolders = [path.resolve(__dirname, '..')];

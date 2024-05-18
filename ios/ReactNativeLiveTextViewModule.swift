@@ -1,12 +1,12 @@
 import ExpoModulesCore
 
-public class ExpoLiveTextModule: Module {
-
+public class ReactNativeLiveTextViewModule: Module {
+  
   public func definition() -> ModuleDefinition {
+    
+    Name("ReactNativeLiveTextView")
 
-    Name("ExpoLiveText")
-
-    View(ExpoLiveTextView.self) {
+    View(ReactNativeLiveTextView.self) {
       Prop("disabled") { (view, disabled: Bool?) in
         view.disabled = disabled ?? false
       }

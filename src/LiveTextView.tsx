@@ -10,7 +10,7 @@ import {
   OnTextSelectionChangeEventData,
 } from './LiveText.types';
 
-const NativeView = requireNativeViewManager('ExpoLiveText');
+const NativeView = requireNativeViewManager('ReactNativeLiveTextView');
 
 function withDeprecatedNativeEvent<NativeEvent>(
   event: NativeSyntheticEvent<NativeEvent>,
@@ -18,7 +18,7 @@ function withDeprecatedNativeEvent<NativeEvent>(
   Object.defineProperty(event.nativeEvent, 'nativeEvent', {
     get() {
       console.warn(
-        '[expo-live-text]: Accessing event payload through "nativeEvent" is deprecated, it is now part of the event object itself',
+        '[react-native-live-text-view]: Accessing event payload through "nativeEvent" is deprecated, it is now part of the event object itself',
       );
       return event.nativeEvent;
     },
