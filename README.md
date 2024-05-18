@@ -1,32 +1,125 @@
-# expo-live-text
+# react-native-live-text-view
 
-My new module
+Enabling Live Text interactions with image.
 
-# API documentation
+## Highlights
 
-- [Documentation for the main branch](https://github.com/expo/expo/blob/main/docs/pages/versions/unversioned/sdk/live-text.md)
-- [Documentation for the latest stable release](https://docs.expo.dev/versions/latest/sdk/live-text/)
+- 🔥 Built with Expo's Module API
+- 🎉 Supports both Image and expo-image.
+- 🍎 iOS only (iOS 16.0+)
 
-# Installation in managed Expo projects
+## Preview
 
-For [managed](https://docs.expo.dev/archive/managed-vs-bare/) Expo projects, please follow the installation instructions in the [API documentation for the latest stable release](#api-documentation). If you follow the link and there is no documentation available then this library is not yet usable within managed projects &mdash; it is likely to be included in an upcoming Expo SDK release.
+![preview](./example/assets/preview.png)
 
-# Installation in bare React Native projects
+## Installation
 
-For bare React Native projects, you must ensure that you have [installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/) before continuing.
+### Expo development build
 
-### Add the package to your npm dependencies
+Install the library:
 
+```shell
+npx expo install react-native-live-text-view
 ```
-npm install expo-live-text
+
+Then rebuild your app:
+
+```shell
+npx expo prebuild -p ios --clean npx expo run:ios
 ```
 
-### Configure for iOS
+### Bare React Native projects
 
-Run `npx pod-install` after installing the npm package.
+You must ensure that you have
+[installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/)
+before continuing.
 
+Install the library:
 
+```shell
+npm install react-native-live-text-view
+```
 
-# Contributing
+Run `npx pod-install`
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/expo/expo#contributing).
+## Usage
+
+### Basic
+
+```tsx
+import { LiveTextView } from 'react-native-live-text-view';
+
+<LiveTextView>
+  <Image source={{ uri: imageUri }} style={{ height, width }} />
+</LiveTextView>;
+```
+
+### Example
+
+```shell
+git clone repo
+cd example
+npm run ios
+```
+
+## API
+
+### Props
+
+| Name                   | Type                                              | Required | Description                                                                                                        |
+| ---------------------- | ------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| children               | `ReactNode`                                       | Yes      | The image for live text interaction.                                                                               |
+| style                  | `StyleProp<ViewStyle>`                            | No       | Container style                                                                                                    |
+| disabled               | `boolean`                                         | No       | Whether to turn off the image analysis. Default value is `false`                                                   |
+| liveActionButtonHidden | `boolean`                                         | No       | Whether to hide the live action button in the lower right corner. Default value is `false`                         |
+| onStart                | `() => void`                                      | No       | Called when image analysis starts.                                                                                 |
+| onReady                | `(event: OnReadyEventData) => void`               | No       | Called when image analysis success.                                                                                |
+| onError                | `(event: OnErrorEventData) => void;`              | No       | Called when image analysis fail.                                                                                   |
+| onHighlightChange      | `(isHighlight: boolean) => void`                  | No       | Called when recognized items in the image appear highlighted as a result of a person tapping the Live Text button. |
+| onTextSelectionChange  | `(event: OnTextSelectionChangeEventData) => void` | No       | Called when the interaction’s text selection changes.                                                              |
+
+### Types
+
+```ts
+interface OnReadyEventData {
+  /*
+   * Whether the analysis finds the specified types in the image.
+   */
+  hasResults: boolean;
+  /*
+   * The string that the text items in the image represent.
+   */
+  transcript: string;
+}
+```
+
+```ts
+interface OnErrorEventData {
+  /*
+   * error message
+   */
+  error: string;
+}
+```
+
+```ts
+interface OnTextSelectionChangeEventData {
+  /*
+   * Selected text, require iOS 17.0+
+   */
+  selectedText: string;
+  /*
+   * Whether has text been selected.
+   */
+  hasActiveTextSelection: boolean;
+}
+```
+
+```ts
+interface OnHighlightChangeEventData {
+  /*
+   * Whether recognized items in the image appear highlighted
+   */
+  isHighlight: boolean;
+}
+```
