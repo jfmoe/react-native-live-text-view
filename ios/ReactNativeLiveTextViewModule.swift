@@ -1,9 +1,9 @@
 import ExpoModulesCore
 
 public class ReactNativeLiveTextViewModule: Module {
-  
+
   public func definition() -> ModuleDefinition {
-    
+
     Name("ReactNativeLiveTextView")
 
     View(ReactNativeLiveTextView.self) {
