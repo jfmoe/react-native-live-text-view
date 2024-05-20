@@ -25,7 +25,8 @@ npx expo install react-native-live-text-view
 Then rebuild your app:
 
 ```shell
-npx expo prebuild -p ios --clean npx expo run:ios
+npx expo prebuild -p ios --clean
+npx expo run:ios
 ```
 
 ### Bare React Native projects
