@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.4.4",
+  "checkpoint_id": "be4f6c2e7a4c",
+  "session_id": "2a117374-8028-4060-a17e-fe63e0c20099",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-17T09:38:33.728993Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md"
+  ],
+  "agent": "Claude Code",
+  "transcript_identifier_at_start": "8fb7fece-6ae0-4639-85b2-665e93f77dc0",
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-17T09:38:33.672645Z",
+    "agent_lines": 80,
+    "human_added": 94,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 174,
+    "agent_percentage": 45.97701149425287
+  },
+  "transcript_path": ".claude/projects/-Users-jfmoe-Program-Repositories-react-native-live-text-view/2a117374-8028-4060-a17e-fe63e0c20099.jsonl"
+}
